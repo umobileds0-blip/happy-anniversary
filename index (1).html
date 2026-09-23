@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            background-color: #FCE8EC; 
+            font-family: 'Mali', cursive, sans-serif; 
+            margin: 0; 
+            padding: 15px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #4A4A4A;
+        }
+
+        .card { 
+            background: white; 
+            width: 100%; 
+            max-width: 400px; 
+            padding: 25px; 
+            border-radius: 30px; 
+            box-shadow: 0 10px 25px rgba(230, 150, 170, 0.25); 
+            text-align: center; 
+            display: none; 
+            position: relative;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h3 { color: #E86A85; margin-top: 0; }
+
+        button.btn-main { 
+            background: #E86A85; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 25px; 
+            font-family: 'Mali', cursive;
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            margin-top: 15px; 
+            color: white; 
+            width: 90%; 
+            font-size: 1rem; 
+            box-shadow: 0 4px 12px rgba(232, 106, 133, 0.3); 
+        }
+        button.btn-main:hover { background: #d45570; transform: translateY(-2px); }
+        button.btn-main:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        /* Page 1: Surprise Box & Custom Image */
+        .cat-img { 
+            width: 160px; 
+            height: 160px; 
+            margin: 10px auto; 
+            object-fit: cover; 
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(232, 106, 133, 0.2);
+        }
+
+        .dashed-box { border: 2px dashed #E86A85; border-radius: 20px; padding: 15px; background: #FFF5F7; margin: 15px 0; }
+
+        /* Page 2: Calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+        .cal-header { font-weight: bold; color: #E86A85; }
+        .cal-day { padding: 8px 2px; border-radius: 10px; }
+        .cal-day.heart-day { 
+            background: #E86A85; 
+            color: white; 
+            font-weight: bold; 
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Page 3: Flip Polaroid Grid */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+            max-height: 420px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        .flip-card {
+            background-color: transparent;
+            height: 190px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 8px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .flip-card-front .img-placeholder { 
+            width: 100%; 
+            height: 140px; 
+            border-radius: 8px; 
+            background: #FFE8EC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #E86A85;
+        }
+        .flip-card-front img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; }
+        .flip-card-front p { margin: 6px 0 0 0; font-size: 0.8rem; color: #666; font-weight: 500; }
+        .flip-card-back {
+            background: #FFF0F3;
+            color: #E86A85;
+            transform: rotateY(180deg);
+            border: 2px dashed #FFCDD6;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            padding: 10px;
+        }
+
+        /* Page 4: Wish Jar */
+        .jar-container { position: relative; width: 140px; margin: 0 auto; cursor: pointer; transition: transform 0.2s; }
+        .jar-container:active { transform: scale(0.95); }
+        .jar-icon { font-size: 5rem; }
+        .popup-card {
+            background: #FFF0F3;
+            border: 2px solid #FFCDD6;
+            border-radius: 15px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #E86A85;
+            font-weight: 600;
+        }
+
+        /* Page 5: Memory Match Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .memory-card {
+            aspect-ratio: 1;
+            background: #FFE8EC;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+            overflow: hidden;
+            border: 2px solid #FFAEC1;
+        }
+        .memory-card .card-content { display: none; font-size: 1.8rem; }
+        .memory-card.flipped .card-content { display: block; }
+        .memory-card.flipped { background: white; }
+
+        /* Page 6: Lucky Wheel */
+        .wheel-container { position: relative; width: 180px; height: 180px; margin: 15px auto; }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #E86A85;
+            transition: transform 3s cubic-bezier(0.15, 0.99, 0.18, 1);
+            background: conic-gradient(
+                #FFD1DC 0deg 60deg, 
+                #FFF0F5 60deg 120deg, 
+                #FFB6C1 120deg 180deg, 
+                #FFD1DC 180deg 240deg, 
+                #FFF0F5 240deg 300deg, 
+                #FFB6C1 300deg 360deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #E86A85;
+            z-index: 10;
+        }
+
+        /* Page 7: Final Note Envelope */
+        .envelope-container {
+            width: 100%;
+            background: #FFEBEF;
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px dashed #E86A85;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        .letter-content {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: left;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #555;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Transition Effect Overlay */
+        #heart-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #E86A85;
+            clip-path: circle(0% at 50% 50%);
+            transition: clip-path 0.7s ease-in-out;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        #heart-overlay.expand { clip-path: circle(150% at 50% 50%); }
+    </style>
+</head>
+<body>
+
+    <div id="heart-overlay"></div>
+
+    <!-- 1. SOMETHING SPECIAL -->
+    <div id="page1" class="card active">
+        <h3>SOMETHING SPECIAL</h3>
+        <img src="https://files.catbox.moe/ph1o01.jpg" class="cat-img" alt="Cat Image">
+
+        <div class="dashed-box">
+            <p style="margin:0; font-size: 0.9rem; color: #888;">click to open</p>
+            <p style="margin:5px 0 0 0; font-size: 0.75rem; color: #aaa;">I MADE SOMETHING FOR YOU ❤️</p>
+        </div>
+        <button class="btn-main" onclick="goToPageWithHeart('page2')">SURPRISE ✨</button>
+    </div>
+
+    <!-- 2. HAPPY ANNIVERSARY CALENDAR -->
+    <div id="page2" class="card">
+        <h3>HAPPY ANNIVERSARY</h3>
+        <p style="font-size: 0.85rem; color: #777;">SEPTEMBER 2026</p>
+        <div class="calendar">
+            <div class="cal-header">S</div><div class="cal-header">M</div><div class="cal-header">T</div><div class="cal-header">W</div><div class="cal-header">T</div><div class="cal-header">F</div><div class="cal-header">S</div>
+            <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div>
+            <div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div>
+            <div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div>
+            <div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day heart-day" onclick="goToPageWithHeart('page3')">25 ❤️</div><div class="cal-day">26</div>
+            <div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+        </div>
+        <p style="font-size: 0.8rem; color: #E86A85;">แตะที่วันที่หัวใจเพื่อไปต่อ 👉</p>
+    </div>
+
+    <!-- 3. OUR MEMORIES -->
+    <div id="page3" class="card">
+        <h3>OUR MEMORIES 📸</h3>
+        <p style="font-size: 0.75rem; color: #888;">(แตะที่รูปเพื่อพลิกอ่านข้อความซ่อนอยู่ 🔄)</p>
+        <div class="polaroid-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="img-placeholder">❤️</div>
+                        <p>💕</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>🥰</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="img-placeholder">🚗</div>
+                        <p> 🚗</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="img-placeholder">😊</div>
+                        <p> 😊</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p></p> 🍊 </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="img-placeholder">🍕</div>
+                        <p> 🍕</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>😋</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="img-placeholder">💖</div>
+                        <p>️ 😁 </p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p> 😙 </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="img-placeholder">✨</div>
+                        <p> 💖</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Happy Anniversary นะครับอ้วน ✨</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn-main" onclick="goToPageWithHeart('page4')">SEE OUR FUTURE ➡️</button>
+    </div>
+
+    <!-- 4. WISH JAR -->
+    <div id="page4" class="card">
+        <h3>WISH JAR 🫙</h3>
+        <p style="font-size: 0.85rem; color: #666;">แตะที่ขวดโหลเพื่อสุ่มคูปอง!</p>
+        <div class="jar-container" onclick="drawWish()">
+            <div class="jar-icon">🫙</div>
+        </div>
+        <div id="wish-result" class="popup-card" style="display: none;"></div>
+        <button class="btn-main" onclick="goToPageWithHeart('page5')">TAP TO CLAIM SURPRISE 🎁</button>
+    </div>
+
+    <!-- 5. MEMORY QUEST (12 Cards Match Game) -->
+    <div id="page5" class="card">
+        <h3>MEMORY QUEST 🧩</h3>
+        <p style="font-size: 0.8rem; color: #666;">จับคู่สัญลักษณ์ความทรงจำของเรา (12 ใบ) ให้ครบ!</p>
+        <div class="memory-grid" id="memoryGrid"></div>
+        <button class="btn-main" id="btn-next-game" style="display: none;" onclick="goToPageWithHeart('page6')">GO TO LUCKY WHEEL 🎡</button>
+    </div>
+
+    <!-- 6. LUCKY WHEEL -->
+    <div id="page6" class="card">
+        <h3>LUCKY WHEEL 🎡</h3>
+        <p style="font-size: 0.8rem; color: #666;">หมุนวงล้อเพื่อสุ่มรางวัลวันนี้!</p>
+        <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+            <div class="wheel" id="wheel">🎁 หมุนเลย</div>
+        </div>
+        <button class="btn-main" id="btn-spin" onclick="spinWheel()">SPIN NOW 🎰</button>
+        <div id="wheel-result" class="popup-card" style="display: none; margin-top: 10px;"></div>
+        <button class="btn-main" id="btn-to-final" style="display: none; margin-top: 10px;" onclick="goToPageWithHeart('page7')">READ FINAL NOTE ✉️</button>
+    </div>
+
+    <!-- 7. FINAL NOTE -->
+    <div id="page7" class="card">
+        <h3>FINAL NOTE 💌</h3>
+        <div class="envelope-container" onclick="openLetter()">
+            <p id="env-text" style="margin:0; font-weight: bold; color: #E86A85;">✉️ แตะเพื่อเปิดอ่านจดหมาย</p>
+            <div class="letter-content" id="letterContent">
+                <p style="margin-top:0; font-weight:bold; color:#E86A85;">ถึงเธอ... ❤️</p>
+                <p> 67</p>
+                <p style="text-align: right; margin-bottom:0;">- จากเค้าเอง -</p>
+            </div>
+        </div>
+        <button class="btn-main" id="btn-to-soundtrack" style="display: none; margin-top: 15px;" onclick="goToPageWithHeart('page8')">OUR SOUNDTRACK 🎵</button>
+    </div>
+
+    <!-- 8. OUR SOUNDTRACK -->
+    <div id="page8" class="card">
+        <h3>OUR SOUNDTRACK 🎵</h3>
+        <div style="font-size: 4rem; margin: 10px auto;">🎵</div>
+        <div style="background: #FFF0F3; border-radius: 20px; padding: 20px; border: 1px solid #FFCDD6; margin-top: 10px;">
+            <p style="margin:0; font-weight: bold; font-size: 1rem; color: #E86A85;">Our Favorite Song 🎧</p>
+            <p style="font-size: 0.8rem; color: #777; margin: 5px 0 15px 0;">เพลงนี้เปิดฟังทุกครั้งก็นึกถึงเธอตลอดเลยนะ 💕</p>
+            <a href="https://www.youtube.com" target="_blank" style="text-decoration: none;">
+                <button class="btn-main" style="width:100%; margin-top:0; background:#FF4B72;">PLAY ON YOUTUBE ▶</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function goToPageWithHeart(pageId) {
+            const overlay = document.getElementById('heart-overlay');
+            overlay.classList.add('expand');
+            setTimeout(() => {
+                document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                overlay.classList.remove('expand');
+                confetti({ particleCount: 30, spread: 60, origin: { y: 0.6 } });
+            }, 600);
+        }
+
+        /* Wish Jar Function */
+        const wishes = ["พาไปกินของอร่อย 1 มื้อ 🥓", "ตามใจ 1 วันเต็มๆ 👑", "กอดแน่นๆ 10 วินาที 🫂", "ซื้อขนมโปรดให้ 1 อย่าง 🧋"];
+        function drawWish() {
+            const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+            const res = document.getElementById('wish-result');
+            res.innerText = "คุณได้รับ: " + randomWish;
+            res.style.display = "block";
+            confetti({ particleCount: 25, spread: 50 });
+        }
+
+        /* Memory Game Function */
+        const icons = ["💖", "🌸", "🧸", "🍰", "💌", "⭐"];
+        let gameCards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+        let flipped = [];
+        let matchedCount = 0;
+
+        const grid = document.getElementById('memoryGrid');
+        gameCards.forEach((icon, idx) => {
+            const card = document.createElement('div');
+            card.className = 'memory-card';
+            card.dataset.index = idx;
+            card.dataset.icon = icon;
+            card.innerHTML = `<span class="q-mark">?</span><span class="card-content">${icon}</span>`;
+            card.onclick = () => flipCard(card);
+            grid.appendChild(card);
+        });
+
+        function flipCard(card) {
+            if (flipped.length < 2 && !card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                card.querySelector('.q-mark').style.display = 'none';
+                flipped.push(card);
+
+                if (flipped.length === 2) {
+                    if (flipped[0].dataset.icon === flipped[1].dataset.icon) {
+                        matchedCount += 2;
+                        flipped = [];
+                        if (matchedCount === gameCards.length) {
+                            document.getElementById('btn-next-game').style.display = 'block';
+                            confetti({ particleCount: 80, spread: 100 });
+                        }
+                    } else {
+                        setTimeout(() => {
+                            flipped.forEach(c => {
+                                c.classList.remove('flipped');
+                                c.querySelector('.q-mark').style.display = 'block';
+                            });
+                            flipped = [];
+                        }, 800);
+                    }
+                }
+            }
+        }
+
+        /* Spin Wheel Function */
+        let spun = false;
+        function spinWheel() {
+            if (spun) return;
+            spun = true;
+            const btnSpin = document.getElementById('btn-spin');
+            btnSpin.disabled = true;
+            
+            const wheel = document.getElementById('wheel');
+            const deg = 1440 + Math.floor(Math.random() * 360);
+            wheel.style.transform = `rotate(${deg}deg)`;
+            
+            setTimeout(() => {
+                const res = document.getElementById('wheel-result');
+                res.innerText = "🎉 คุณได้รับรางวัล: ตามใจ 1 วันเต็มๆ! ❤️";
+                res.style.display = "block";
+                document.getElementById('btn-to-final').style.display = "block";
+                confetti({ particleCount: 100, spread: 70 });
+            }, 3000);
+        }
+
+        /* Letter Open Function */
+        function openLetter() {
+            document.getElementById('env-text').style.display = 'none';
+            document.getElementById('letterContent').style.display = 'block';
+            document.getElementById('btn-to-soundtrack').style.display = 'block';
+            confetti({ particleCount: 50, spread: 80 });
+        }
+    </script>
+</body>
+</html>
