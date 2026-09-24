@@ -138,19 +138,17 @@
             justify-content: center;
             align-items: center;
         }
-        .flip-card-front .img-placeholder { 
-            width: 100%; 
-            height: 140px; 
-            border-radius: 8px; 
-            background: #FFE8EC;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #E86A85;
+        .flip-card-front img { width: 100%; height: 135px; object-fit: cover; border-radius: 8px; }
+        .flip-card-front p { 
+            margin: 4px 0 0 0; 
+            font-size: 0.85rem; 
+            font-weight: 500;
+            color: #555;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
-        .flip-card-front img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; }
-        .flip-card-front p { margin: 6px 0 0 0; font-size: 0.8rem; color: #666; font-weight: 500; }
         .flip-card-back {
             background: #FFF0F3;
             color: #E86A85;
@@ -164,7 +162,7 @@
         /* Page 4: Wish Jar */
         .jar-container { position: relative; width: 140px; margin: 0 auto; cursor: pointer; transition: transform 0.2s; }
         .jar-container:active { transform: scale(0.95); }
-        .jar-icon { font-size: 5rem; }
+        .jar-img { width: 100%; }
         .popup-card {
             background: #FFF0F3;
             border: 2px solid #FFCDD6;
@@ -196,8 +194,8 @@
             overflow: hidden;
             border: 2px solid #FFAEC1;
         }
-        .memory-card .card-content { display: none; font-size: 1.8rem; }
-        .memory-card.flipped .card-content { display: block; }
+        .memory-card img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .memory-card.flipped img { display: block; }
         .memory-card.flipped { background: white; }
 
         /* Page 6: Lucky Wheel */
@@ -308,11 +306,11 @@
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="img-placeholder">❤️</div>
-                        <p>💕</p>
+                        <img src="https://files.catbox.moe/w52k58.jpg">
+                        <p>มีทองงง</p>
                     </div>
                     <div class="flip-card-back">
-                        <p>🥰</p>
+                        <p>มีทองเอาทองมี แต่รักนะคนดีมีให้อ้วนคนเดียว</p>
                     </div>
                 </div>
             </div>
@@ -320,11 +318,11 @@
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="img-placeholder">🚗</div>
-                        <p> 🚗</p>
+                        <img src="https://files.catbox.moe/dbqnek.jpg">
+                        <p>หมุอ้วนใส่แว่นนนนน</p>
                     </div>
                     <div class="flip-card-back">
-                        <p></p>
+                        <p>ชอบทำให้เขินอยู่เรื่อยๆเลย</p>
                     </div>
                 </div>
             </div>
@@ -332,11 +330,11 @@
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="img-placeholder">😊</div>
-                        <p> 😊</p>
+                        <img src="https://files.catbox.moe/vmi0h4.jpg">
+                        <p>รอยยิ้มที่ชอบที่สุด</p>
                     </div>
                     <div class="flip-card-back">
-                        <p></p> 🍊 </p>
+                        <p>ชอบรอยยิ้มนี้ที่สุด อยู่ยิ้มแบบนี้ให้เค้าไปนานๆ นะ</p>
                     </div>
                 </div>
             </div>
@@ -344,11 +342,11 @@
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="img-placeholder">🍕</div>
-                        <p> 🍕</p>
+                        <img src="https://files.catbox.moe/428a94.jpg">
+                        <p>รูปคู่ของเรา</p>
                     </div>
                     <div class="flip-card-back">
-                        <p>😋</p>
+                        <p>อยากไปถ่ายแบบนี้จัง 🥺</p>
                     </div>
                 </div>
             </div>
@@ -356,11 +354,11 @@
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="img-placeholder">💖</div>
-                        <p>️ 😁 </p>
+                        <img src="https://files.catbox.moe/s6dcw2.jpg">
+                        <p>ขอบคุณที่อยู่ข้างๆ</p>
                     </div>
                     <div class="flip-card-back">
-                        <p> 😙 </p>
+                        <p>ไม่ว่าจะเจออะไร ขอบคุณที่ไม่เคยปล่อยมือกันนะ</p>
                     </div>
                 </div>
             </div>
@@ -368,11 +366,11 @@
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="img-placeholder">✨</div>
-                        <p> 💖</p>
+                        <img src="https://files.catbox.moe/dzeq83.jpg">
+                        <p>รักนะอ้วน 💖</p>
                     </div>
                     <div class="flip-card-back">
-                        <p>Happy Anniversary นะครับอ้วน ✨</p>
+                        <p>Happy Anniversary นะอ้วน ✨</p>
                     </div>
                 </div>
             </div>
@@ -385,7 +383,7 @@
         <h3>WISH JAR 🫙</h3>
         <p style="font-size: 0.85rem; color: #666;">แตะที่ขวดโหลเพื่อสุ่มคูปอง!</p>
         <div class="jar-container" onclick="drawWish()">
-            <div class="jar-icon">🫙</div>
+            <img src="https://cdn-icons-png.flaticon.com/512/3132/3132742.png" class="jar-img" alt="Wish Jar">
         </div>
         <div id="wish-result" class="popup-card" style="display: none;"></div>
         <button class="btn-main" onclick="goToPageWithHeart('page5')">TAP TO CLAIM SURPRISE 🎁</button>
@@ -394,7 +392,7 @@
     <!-- 5. MEMORY QUEST (12 Cards Match Game) -->
     <div id="page5" class="card">
         <h3>MEMORY QUEST 🧩</h3>
-        <p style="font-size: 0.8rem; color: #666;">จับคู่สัญลักษณ์ความทรงจำของเรา (12 ใบ) ให้ครบ!</p>
+        <p style="font-size: 0.8rem; color: #666;">จับคู่ภาพความทรงจำของเรา (12 ใบ) ให้ครบ!</p>
         <div class="memory-grid" id="memoryGrid"></div>
         <button class="btn-main" id="btn-next-game" style="display: none;" onclick="goToPageWithHeart('page6')">GO TO LUCKY WHEEL 🎡</button>
     </div>
@@ -418,9 +416,11 @@
         <div class="envelope-container" onclick="openLetter()">
             <p id="env-text" style="margin:0; font-weight: bold; color: #E86A85;">✉️ แตะเพื่อเปิดอ่านจดหมาย</p>
             <div class="letter-content" id="letterContent">
-                <p style="margin-top:0; font-weight:bold; color:#E86A85;">ถึงเธอ... ❤️</p>
-                <p> 67</p>
-                <p style="text-align: right; margin-bottom:0;">- จากเค้าเอง -</p>
+                <p style="margin-top:0; font-weight:bold; color:#E86A85;">ถึงอ้วน....🤍</p>
+                <p>สุขสันต์วันครบรอบนะอ้วน ถึงเดือนนี้เราจะคุยกันน้อยลง ไม่ค่อยมีเวลาโทรหากันเพราะต่างคนต่างเหนื่อย แต่เค้าอยากให้เธอรู้ไว้นะว่าไม่เคยมีวันไหนที่รักน้อยลงเลย</p>
+                <p>เค้าเข้าใจและภูมิใจในตัวอ้วนเสมอเรื่องทำงาน รู้ว่าอ้วนเหนื่อยมาก ทางนี้เค้าก็ตั้งใจเรียนเหมือนกัน ถึงเวลาจะไม่ตรงกันแต่ใจเค้ายังอยู่ตรงนี้ข้างๆ อ้วนเสมอนะ</p>
+                <p>ขอบคุณที่อดทนและจับมือผ่านช่วงเวลาวุ่นวาย ไม่ว่าแค่ไหนเราก็ยังเดินไปด้วยกันเสมอ พักผ่อนเยอะๆ นะครับ เค้าอยู่ตรงนี้คอยเป็นกำลังใจให้อ้วนเสมอ</p>
+                <p style="text-align: right; margin-bottom:0; font-weight: bold; color:#E86A85;">รักนะคับ 🤍🍊</p>
             </div>
         </div>
         <button class="btn-main" id="btn-to-soundtrack" style="display: none; margin-top: 15px;" onclick="goToPageWithHeart('page8')">OUR SOUNDTRACK 🎵</button>
@@ -429,11 +429,11 @@
     <!-- 8. OUR SOUNDTRACK -->
     <div id="page8" class="card">
         <h3>OUR SOUNDTRACK 🎵</h3>
-        <div style="font-size: 4rem; margin: 10px auto;">🎵</div>
+        <img src="https://cdn-icons-png.flaticon.com/512/3844/3844720.png" style="width: 100px; margin: 10px auto;" alt="Music Note">
         <div style="background: #FFF0F3; border-radius: 20px; padding: 20px; border: 1px solid #FFCDD6; margin-top: 10px;">
             <p style="margin:0; font-weight: bold; font-size: 1rem; color: #E86A85;">Our Favorite Song 🎧</p>
             <p style="font-size: 0.8rem; color: #777; margin: 5px 0 15px 0;">เพลงนี้เปิดฟังทุกครั้งก็นึกถึงเธอตลอดเลยนะ 💕</p>
-            <a href="https://www.youtube.com" target="_blank" style="text-decoration: none;">
+            <a href="https://www.youtube.com/watch?v=72Zw5kT1aQg" target="_blank" style="text-decoration: none;">
                 <button class="btn-main" style="width:100%; margin-top:0; background:#FF4B72;">PLAY ON YOUTUBE ▶</button>
             </a>
         </div>
@@ -452,7 +452,7 @@
         }
 
         /* Wish Jar Function */
-        const wishes = ["พาไปกินของอร่อย 1 มื้อ 🥓", "ตามใจ 1 วันเต็มๆ 👑", "กอดแน่นๆ 10 วินาที 🫂", "ซื้อขนมโปรดให้ 1 อย่าง 🧋"];
+        const wishes = ["พาไปกินของอร่อย 1 มื้อ ", "ตามใจ 1 วันเต็มๆ ", "กอดแน่นๆ 10 วินาที ", "ซื้อขนมโปรดให้ 1 อย่าง "];
         function drawWish() {
             const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
             const res = document.getElementById('wish-result');
@@ -462,18 +462,25 @@
         }
 
         /* Memory Game Function */
-        const icons = ["💖", "🌸", "🧸", "🍰", "💌", "⭐"];
-        let gameCards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+        const imgs = [
+            "https://files.catbox.moe/k5p1tl.jpg",
+            "https://files.catbox.moe/mkdgl2.png",
+            "https://files.catbox.moe/bg3zsh.jpg",
+            "https://files.catbox.moe/1yrfqk.jpg",
+            "https://files.catbox.moe/c85na3.jpg",
+            "https://files.catbox.moe/npvuux.png"
+        ];
+        let gameCards = [...imgs, ...imgs].sort(() => Math.random() - 0.5);
         let flipped = [];
         let matchedCount = 0;
 
         const grid = document.getElementById('memoryGrid');
-        gameCards.forEach((icon, idx) => {
+        gameCards.forEach((imgUrl, idx) => {
             const card = document.createElement('div');
             card.className = 'memory-card';
             card.dataset.index = idx;
-            card.dataset.icon = icon;
-            card.innerHTML = `<span class="q-mark">?</span><span class="card-content">${icon}</span>`;
+            card.dataset.img = imgUrl;
+            card.innerHTML = `<span class="q-mark">?</span><img src="${imgUrl}">`;
             card.onclick = () => flipCard(card);
             grid.appendChild(card);
         });
@@ -485,7 +492,7 @@
                 flipped.push(card);
 
                 if (flipped.length === 2) {
-                    if (flipped[0].dataset.icon === flipped[1].dataset.icon) {
+                    if (flipped[0].dataset.img === flipped[1].dataset.img) {
                         matchedCount += 2;
                         flipped = [];
                         if (matchedCount === gameCards.length) {
@@ -519,7 +526,7 @@
             
             setTimeout(() => {
                 const res = document.getElementById('wheel-result');
-                res.innerText = "🎉 คุณได้รับรางวัล: ตามใจ 1 วันเต็มๆ! ❤️";
+                res.innerText = "🎉 อ้วนได้รับรางวัล: สั่งน้องมอยได้ 1 อย่าง";
                 res.style.display = "block";
                 document.getElementById('btn-to-final').style.display = "block";
                 confetti({ particleCount: 100, spread: 70 });
